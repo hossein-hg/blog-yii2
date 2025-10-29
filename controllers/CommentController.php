@@ -25,9 +25,14 @@ class CommentController extends Controller
                     'class' => AccessControl::class,
                     'rules' => [
                         [
-                            'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                            'actions' => ['index', 'view',  'delete'],
                             'allow' => true,
-                            'roles' => ['admin', 'author'], // فقط کاربران با نقش admin و author
+                            'roles' => ['admin'], // فقط کاربران با نقش admin و author
+                        ],
+                         [
+                            'actions' => ['index', 'view'],
+                            'allow' => true,
+                            'roles' => [ 'author'], // فقط کاربران با نقش admin و author
                         ],
                     ],
                     'denyCallback' => function ($rule, $action) {
