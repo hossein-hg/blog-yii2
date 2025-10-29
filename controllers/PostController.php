@@ -124,35 +124,35 @@ class PostController extends Controller
     // }
     $model = $this->findModel($id);
 
-    if ($this->request->isPost) {
-        if ($model->load($this->request->post())) {
-            $oldImagePath = $model->image_path; // ذخیره مقدار قبلی image_path
-            if ($model->upload()) {
-                // اگر تصویر جدیدی آپلود نشده، مقدار قبلی حفظ شود
-                if (!$model->imageFile) {
-                    $model->image_path = $oldImagePath;
-                }
-                $model->author_id = Yii::$app->user->id;
-                if ($model->save()) {
-                    Yii::$app->session->setFlash('success', 'پست با موفقیت به‌روزرسانی شد.');
-                    return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+                $oldImagePath = $model->image_path; // ذخیره مقدار قبلی image_path
+                if ($model->upload()) {
+                    // اگر تصویر جدیدی آپلود نشده، مقدار قبلی حفظ شود
+                    if (!$model->imageFile) {
+                        $model->image_path = $oldImagePath;
+                    }
+                    $model->author_id = Yii::$app->user->id;
+                    if ($model->save()) {
+                        Yii::$app->session->setFlash('success', 'پست با موفقیت به‌روزرسانی شد.');
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    } else {
+                        \Yii::error('خطای ذخیره‌سازی مدل: ' . print_r($model->errors, true));
+                        var_dump($model->errors);
+                        exit;
+                    }
                 } else {
-                    \Yii::error('خطای ذخیره‌سازی مدل: ' . print_r($model->errors, true));
+                    \Yii::error('خطای آپلود: ' . print_r($model->errors, true));
                     var_dump($model->errors);
                     exit;
                 }
-            } else {
-                \Yii::error('خطای آپلود: ' . print_r($model->errors, true));
-                var_dump($model->errors);
-                exit;
             }
         }
-    }
 
-    return $this->render('update', [
-        'model' => $model,
-    ]);
-}
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
 
     /**
      * Deletes an existing Post model.

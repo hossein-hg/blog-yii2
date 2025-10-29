@@ -43,7 +43,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             'content:ntext',
-            'created_at',
+            [
+                'attribute' => 'created at',
+                'value' => function ($model) {
+                    return \Morilog\Jalali\Jalalian::forge($model->created_at)->format('%B %d، %Y');
+                },
+            ],
         ],
     ]) ?>
 

@@ -51,8 +51,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->author ? $model->author->username : '-';
                 },
             ],
-            'created_at',
-            'updated_at',
+            [
+                'attribute' => 'created at',
+                'value' => function ($model) {
+                    return \Morilog\Jalali\Jalalian::forge($model->created_at)->format('%B %d، %Y');
+                },
+            ],
+            [
+                'attribute' => 'updated at',
+                'value' => function ($model) {
+                    return \Morilog\Jalali\Jalalian::forge($model->updated_at)->format('%B %d، %Y');
+                },
+            ],
         ],
     ]) ?>
 

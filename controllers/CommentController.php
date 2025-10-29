@@ -27,12 +27,12 @@ class CommentController extends Controller
                         [
                             'actions' => ['index', 'view',  'delete'],
                             'allow' => true,
-                            'roles' => ['admin'], // فقط کاربران با نقش admin و author
+                            'roles' => ['admin'],    
                         ],
                          [
                             'actions' => ['index', 'view'],
                             'allow' => true,
-                            'roles' => [ 'author'], // فقط کاربران با نقش admin و author
+                            'roles' => [ 'author'],  
                         ],
                     ],
                     'denyCallback' => function ($rule, $action) {
