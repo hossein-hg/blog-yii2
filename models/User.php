@@ -13,6 +13,30 @@ class User extends ActiveRecord implements IdentityInterface
         return 'users'; // نام جدول در دیتابیس
     }
 
+    public function rules()
+{
+    return [
+        // فیلدهای ضروری
+        [['username', 'email'], 'required'],
+        
+        // نوع و محدودیت‌ها
+        ['username', 'string', 'max' => 50],
+        ['email', 'email'],
+        ['email', 'string', 'max' => 100],
+        
+        // فیلدهای safe (برای password, status, etc.)
+        [['password_hash', 'auth_key','username','email','created_at'], 'safe'],
+        
+        // یا به جای safe، هر کدوم رو جدا تعریف کن
+        // ['password', 'string', 'min' => 6],
+    ];
+}
+
+    public function fields()
+    {
+        return ['id', 'username', 'created_at', 'email'];
+    }
+
     /**
      * Finds user by ID
      * @param string/int $id

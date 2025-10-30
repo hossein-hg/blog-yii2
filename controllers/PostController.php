@@ -14,6 +14,7 @@ use yii\filters\AccessControl;
  */
 class PostController extends Controller
 {
+    public $modelClass = 'app\models\Post';
     /**
      * @inheritDoc
      */
@@ -21,6 +22,7 @@ class PostController extends Controller
     {
         return array_merge(
             parent::behaviors(),
+            
             [
                 'access' => [
                     'class' => AccessControl::class,
@@ -98,6 +100,7 @@ class PostController extends Controller
         if ($this->request->isPost) {
             $model->author_id = Yii::$app->user->id;
             if ($model->load($this->request->post())  && $model->upload()  && $model->save()) {
+               
                 
                 return $this->redirect(['view', 'id' => $model->id]);
             }

@@ -36,6 +36,11 @@ class Post extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+
+    public function fields()
+    {
+        return ['id', 'title', 'content','author_id','imageFile'];
+    }
     public function rules()
     {
         return [
